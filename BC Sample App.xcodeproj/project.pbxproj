@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,7 @@
 		94BF116A2316D31600D895ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94BF11682316D31600D895ED /* LaunchScreen.storyboard */; };
 		94BF11762316E2F900D895ED /* Demo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BF11752316E2F900D895ED /* Demo.swift */; };
 		94BF117A2316F3CE00D895ED /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BF11792316F3CE00D895ED /* VideoViewController.swift */; };
+		94BF117C2317218300D895ED /* AdvertisingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BF117B2317218300D895ED /* AdvertisingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		94BF116B2316D31600D895ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		94BF11752316E2F900D895ED /* Demo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Demo.swift; sourceTree = "<group>"; };
 		94BF11792316F3CE00D895ED /* VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
+		94BF117B2317218300D895ED /* AdvertisingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisingViewController.swift; sourceTree = "<group>"; };
 		A539E981B1DDC2C6A72C4668 /* Pods_BC_Sample_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BC_Sample_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C55EA87147CD66863397A9A7 /* Pods-BC Sample App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BC Sample App.release.xcconfig"; path = "Target Support Files/Pods-BC Sample App/Pods-BC Sample App.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -105,6 +107,7 @@
 			children = (
 				94BF11612316D31100D895ED /* ViewController.swift */,
 				94BF11792316F3CE00D895ED /* VideoViewController.swift */,
+				94BF117B2317218300D895ED /* AdvertisingViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -115,7 +118,6 @@
 				1EADB05F1D9EE2335A248817 /* Pods-BC Sample App.debug.xcconfig */,
 				C55EA87147CD66863397A9A7 /* Pods-BC Sample App.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -235,6 +237,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				94BF11622316D31100D895ED /* ViewController.swift in Sources */,
+				94BF117C2317218300D895ED /* AdvertisingViewController.swift in Sources */,
 				94BF11602316D31100D895ED /* AppDelegate.swift in Sources */,
 				94BF117A2316F3CE00D895ED /* VideoViewController.swift in Sources */,
 				94BF11762316E2F900D895ED /* Demo.swift in Sources */,

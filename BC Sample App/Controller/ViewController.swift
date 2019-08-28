@@ -36,22 +36,35 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "toVideo", sender: self)
+        switch arrayOfDemos[indexPath.row].loadWithActivity {
+        case "VideoViewController":
+            performSegue(withIdentifier: "toBasicVideo", sender: self)
+        case "AdvertisingViewController":
+            performSegue(withIdentifier: "toAdvertisingVideo", sender: self)
+        default:
+            print("default")
+        }
     }
 
     func setValuesForDemos() {
-        arrayOfDemos = [Demo(withName: "Simple Demo", withContent_id: "6054855884001"),
-                        Demo(withName: "Another Simple Demo", withContent_id: "6056595896001"),
-                        Demo(withName: "Yet another Simple Demo", withContent_id: "6054851890001") ]
+        arrayOfDemos = [Demo(withName: "Simple Demo", withContent_id: "6054855884001", withActivity: "VideoViewController"),
+                        Demo(withName: "Another Simple Demo", withContent_id: "6056595896001", withActivity: "AdvertisingViewController"),
+                        Demo(withName: "Yet another Simple Demo", withContent_id: "6054851890001", withActivity: "VideoViewController") ]
         
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destinationVC = segue.destination as! VideoViewController
         
-        if let indexPath = tableView.indexPathForSelectedRow {
-            
-            destinationVC.selectedDemo = arrayOfDemos[indexPath.row]
+        if segue.identifier == "toBasicVideo" {
+            if let indexPath = tableView.indexPathForSelectedRow {
+                let destinationVC = segue.destination as! VideoViewController
+                destinationVC.selectedDemo = arrayOfDemos[indexPath.row]
+            }
+        } else if segue.identifier == "toAdvertisingVideo" {
+            if let indexPath = tableView.indexPathForSelectedRow {
+                let destinationVC = segue.destination as! AdvertisingViewController
+                destinationVC.selectedDemo = arrayOfDemos[indexPath.row]
+            }
         }
     }
 }

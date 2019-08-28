@@ -55,7 +55,8 @@
                     <navigationItem key="navigationItem" title="BC Demo" id="xav-d3-2Go"/>
                     <connections>
                         <outlet property="tableView" destination="yha-3p-5SI" id="iON-Sx-DkZ"/>
-                        <segue destination="ZdA-su-XIJ" kind="show" identifier="toVideo" id="m6J-QG-YpL"/>
+                        <segue destination="ZdA-su-XIJ" kind="show" identifier="toBasicVideo" id="m6J-QG-YpL"/>
+                        <segue destination="1eq-0R-Ibw" kind="show" identifier="toAdvertisingVideo" id="sy5-Qo-VKT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -106,7 +107,37 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="07q-p8-C9D" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1015.9420289855074" y="138.61607142857142"/>
+            <point key="canvasLocation" x="1036" y="-179"/>
+        </scene>
+        <!--Advertising View Controller-->
+        <scene sceneID="2Hp-PY-2bS">
+            <objects>
+                <viewController id="1eq-0R-Ibw" customClass="AdvertisingViewController" customModule="BC_Sample_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="R3A-oC-39A">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wg3-vF-lI7" customClass="ADver">
+                                <rect key="frame" x="0.0" y="140" width="414" height="722"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="wg3-vF-lI7" firstAttribute="leading" secondItem="rHQ-fw-mQs" secondAttribute="leading" id="7hQ-aJ-GkS"/>
+                            <constraint firstItem="wg3-vF-lI7" firstAttribute="bottom" secondItem="rHQ-fw-mQs" secondAttribute="bottom" id="EtA-0g-5rX"/>
+                            <constraint firstItem="wg3-vF-lI7" firstAttribute="trailing" secondItem="rHQ-fw-mQs" secondAttribute="trailing" id="eIA-Q4-YtZ"/>
+                            <constraint firstItem="wg3-vF-lI7" firstAttribute="top" secondItem="rHQ-fw-mQs" secondAttribute="top" id="mdB-hl-DCQ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="rHQ-fw-mQs"/>
+                    </view>
+                    <connections>
+                        <outlet property="videoContainerView" destination="wg3-vF-lI7" id="OGi-O1-Dmt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vWx-jH-jSY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1035" y="534"/>
         </scene>
     </scenes>
 </document>
