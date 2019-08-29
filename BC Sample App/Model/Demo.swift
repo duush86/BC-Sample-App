@@ -12,9 +12,11 @@ class Demo {
     var content_id: String = ""
     var name: String = ""
     var loadWithActivity: String = ""
+    
     init(withName: String, withContent_id: String, withActivity: String) {
         self.name = withName
         self.content_id = withContent_id
         self.loadWithActivity = withActivity
     }
+
 }

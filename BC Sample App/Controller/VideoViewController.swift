@@ -9,73 +9,99 @@
 import UIKit
 import BrightcovePlayerSDK
 
-let kViewControllerPlaybackServicePolicyKey = "BCpkADawqM32nL1Ic9gyo3bITy-1QWVkCxdmpEw9LLw3BrW7TwxPPCaWEq5OoIRzx9E3ydeeS2uir3OOi2ziy2Dh5NjlAqavWfSjyFXkTtHB69KQkyc0-FAXel3bqWzTFdMuFXy0RjhXsecd"
-let kViewControllerAccountID = "6030890615001"
-
 class VideoViewController: UIViewController, BCOVPlaybackControllerDelegate {
-    var selectedDemo: Demo?
-  
+    
     @IBOutlet weak var videoContainerView: UIView!
+    var selectedDemo: Demo?
     
-    let sharedSDKManager = BCOVPlayerSDKManager.shared()
-    let playbackService = BCOVPlaybackService(accountId: kViewControllerAccountID, policyKey: kViewControllerPlaybackServicePolicyKey)!
-    let playbackController :BCOVPlaybackController
-    
-    required init?(coder aDecoder: NSCoder) {
-        playbackController = (sharedSDKManager?.createPlaybackController())!
+    private lazy var playerView: BCOVPUIPlayerView? = {
+        let options = BCOVPUIPlayerViewOptions()
+        options.presentingViewController = self
         
-        super.init(coder: aDecoder)
+        let controlView = BCOVPUIBasicControlView.withVODLayout()
+        guard let _playerView = BCOVPUIPlayerView(playbackController: nil, options: options, controlsView: controlView) else {
+            return nil
+        }
         
-        playbackController.analytics.account = kViewControllerAccountID // Optional
+        // Add to parent view
+        self.videoContainerView.addSubview(_playerView)
+        _playerView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            _playerView.topAnchor.constraint(equalTo: self.videoContainerView.topAnchor),
+            _playerView.rightAnchor.constraint(equalTo: self.videoContainerView.rightAnchor),
+            _playerView.leftAnchor.constraint(equalTo: self.videoContainerView.leftAnchor),
+            _playerView.bottomAnchor.constraint(equalTo: self.videoContainerView.bottomAnchor)
+            ])
         
-        playbackController.delegate = self
-        playbackController.isAutoAdvance = true
-        playbackController.isAutoPlay = true
-    }
+        return _playerView
+    }()
     
+    private lazy var playbackController: BCOVPlaybackController? = {
+
+        guard let _playbackController =  (BCOVPlayerSDKManager.shared()?.createPlaybackController()) else { return nil }
+
+        _playbackController.delegate = self
+        _playbackController.isAutoAdvance = true
+        _playbackController.isAutoPlay = true
+        
+        self.playerView?.playbackController = _playbackController
+        
+        return _playbackController
+    }()
     
+    private lazy var playbackService: BCOVPlaybackService = {
+        return BCOVPlaybackService(accountId: kViewControllerAccountID, policyKey: kViewControllerPlaybackServicePolicyKey)
+    }()
+    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-       
-        loadVideo()
-        
+        let _ = playerView
+        let _ = playbackController
+        requestContentFromPlaybackService()
     }
     
-    func requestContentFromPlaybackService() {
-        playbackService.findVideo(withVideoID: selectedDemo?.content_id, parameters: nil) { (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) -> Void in
+
+    
+    private func requestContentFromPlaybackService() {
+        
+  
+        
+        playbackService.findVideo(withVideoID: selectedDemo?.content_id, parameters: nil) { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable:Any]?, error: Error?) in
             
-            if let v = video {
-                self.playbackController.setVideos([v] as NSArray)
-            } else {
-                print("ViewController Debug - Error retrieving video: \(error?.localizedDescription ?? "unknown error")")
+            if let video = video {
+                
+                let playlist = BCOVPlaylist(video: video)
+                let updatedPlaylist = playlist?.update({ (mutablePlaylist: BCOVMutablePlaylist?) in
+                    
+                    guard let mutablePlaylist = mutablePlaylist else {
+                        return
+                    }
+                    
+                    var updatedVideos:[BCOVVideo] = []
+                    
+                    for video in mutablePlaylist.videos {
+                        if let _video = video as? BCOVVideo {
+                            updatedVideos.append(_video)
+                        }
+                    }
+                    
+                    mutablePlaylist.videos = updatedVideos
+                    
+                })
+                
+                if let _updatedPlaylist = updatedPlaylist {
+                    self?.playbackController?.setVideos(_updatedPlaylist.videos as NSFastEnumeration)
+                }
             }
-        }
-    }
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        title = selectedDemo?.name
-    }
-        
-    
-    func loadVideo(){
             
-            guard let playerView = BCOVPUIPlayerView(playbackController: self.playbackController, options: nil, controlsView: BCOVPUIBasicControlView.withVODLayout()) else {
-                return
+            if let error = error {
+                print("Error retrieving video: \(error.localizedDescription)")
             }
-            self.videoContainerView.addSubview(playerView)
-            playerView.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                playerView.topAnchor.constraint(equalTo: self.videoContainerView.topAnchor),
-                playerView.rightAnchor.constraint(equalTo: self.videoContainerView.rightAnchor),
-                playerView.leftAnchor.constraint(equalTo: self.videoContainerView.leftAnchor),
-                playerView.bottomAnchor.constraint(equalTo: self.videoContainerView.bottomAnchor)
-                ])
             
-            playerView.playbackController = playbackController
-            
-            requestContentFromPlaybackService()
         }
+        
+    }
+    
 }

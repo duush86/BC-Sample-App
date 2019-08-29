@@ -56,7 +56,7 @@
                     <connections>
                         <outlet property="tableView" destination="yha-3p-5SI" id="iON-Sx-DkZ"/>
                         <segue destination="ZdA-su-XIJ" kind="show" identifier="toBasicVideo" id="m6J-QG-YpL"/>
-                        <segue destination="1eq-0R-Ibw" kind="show" identifier="toAdvertisingVideo" id="sy5-Qo-VKT"/>
+                        <segue destination="1eq-0R-Ibw" kind="show" identifier="toIMAVideo" id="sy5-Qo-VKT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

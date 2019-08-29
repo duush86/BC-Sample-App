@@ -8,6 +8,13 @@
 
 import UIKit
 
+let kViewControllerPlaybackServicePolicyKey = "BCpkADawqM32nL1Ic9gyo3bITy-1QWVkCxdmpEw9LLw3BrW7TwxPPCaWEq5OoIRzx9E3ydeeS2uir3OOi2ziy2Dh5NjlAqavWfSjyFXkTtHB69KQkyc0-FAXel3bqWzTFdMuFXy0RjhXsecd"
+let kViewControllerAccountID = "6030890615001"
+
+let imaPublishID = ""
+let imaLanguage = "en"
+let imaAdTagURL = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator="
+
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var arrayOfDemos =  Array<Demo>()
     
@@ -40,7 +47,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         case "VideoViewController":
             performSegue(withIdentifier: "toBasicVideo", sender: self)
         case "AdvertisingViewController":
-            performSegue(withIdentifier: "toAdvertisingVideo", sender: self)
+            performSegue(withIdentifier: "toIMAVideo", sender: self)
         default:
             print("default")
         }
@@ -48,7 +55,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     func setValuesForDemos() {
         arrayOfDemos = [Demo(withName: "Simple Demo", withContent_id: "6054855884001", withActivity: "VideoViewController"),
-                        Demo(withName: "Another Simple Demo", withContent_id: "6056595896001", withActivity: "AdvertisingViewController"),
+                        Demo(withName: "IMA Integration Demo", withContent_id: "6056595896001", withActivity: "AdvertisingViewController"),
                         Demo(withName: "Yet another Simple Demo", withContent_id: "6054851890001", withActivity: "VideoViewController") ]
         
     }
@@ -60,7 +67,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 let destinationVC = segue.destination as! VideoViewController
                 destinationVC.selectedDemo = arrayOfDemos[indexPath.row]
             }
-        } else if segue.identifier == "toAdvertisingVideo" {
+        } else if segue.identifier == "toIMAVideo" {
             if let indexPath = tableView.indexPathForSelectedRow {
                 let destinationVC = segue.destination as! AdvertisingViewController
                 destinationVC.selectedDemo = arrayOfDemos[indexPath.row]
