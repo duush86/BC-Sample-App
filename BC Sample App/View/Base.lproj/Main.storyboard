@@ -109,10 +109,10 @@
             </objects>
             <point key="canvasLocation" x="1036" y="-179"/>
         </scene>
-        <!--Advertising View Controller-->
+        <!--View Controller-->
         <scene sceneID="2Hp-PY-2bS">
             <objects>
-                <viewController id="1eq-0R-Ibw" customClass="AdvertisingViewController" customModule="BC_Sample_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="1eq-0R-Ibw" customClass="BCIMAViewController" customModule="BC_Sample_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="R3A-oC-39A">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

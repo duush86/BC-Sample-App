@@ -46,7 +46,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         switch arrayOfDemos[indexPath.row].loadWithActivity {
         case "VideoViewController":
             performSegue(withIdentifier: "toBasicVideo", sender: self)
-        case "AdvertisingViewController":
+        case "BCIMAViewController":
             performSegue(withIdentifier: "toIMAVideo", sender: self)
         default:
             print("default")
@@ -55,7 +55,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     func setValuesForDemos() {
         arrayOfDemos = [Demo(withName: "Simple Demo", withContent_id: "6054855884001", withActivity: "VideoViewController"),
-                        Demo(withName: "IMA Integration Demo", withContent_id: "6056595896001", withActivity: "AdvertisingViewController"),
+                        Demo(withName: "IMA Integration Demo", withContent_id: "6056595896001", withActivity: "BCIMAViewController"),
                         Demo(withName: "Yet another Simple Demo", withContent_id: "6054851890001", withActivity: "VideoViewController") ]
         
     }
@@ -69,7 +69,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
         } else if segue.identifier == "toIMAVideo" {
             if let indexPath = tableView.indexPathForSelectedRow {
-                let destinationVC = segue.destination as! AdvertisingViewController
+                let destinationVC = segue.destination as! BCIMAViewController
                 destinationVC.selectedDemo = arrayOfDemos[indexPath.row]
             }
         }

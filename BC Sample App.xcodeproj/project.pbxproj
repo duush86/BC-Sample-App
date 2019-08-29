@@ -15,7 +15,7 @@
 		94BF116A2316D31600D895ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94BF11682316D31600D895ED /* LaunchScreen.storyboard */; };
 		94BF11762316E2F900D895ED /* Demo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BF11752316E2F900D895ED /* Demo.swift */; };
 		94BF117A2316F3CE00D895ED /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BF11792316F3CE00D895ED /* VideoViewController.swift */; };
-		94BF117C2317218300D895ED /* AdvertisingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BF117B2317218300D895ED /* AdvertisingViewController.swift */; };
+		94BF117C2317218300D895ED /* BCIMAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BF117B2317218300D895ED /* BCIMAViewController.swift */; };
 		F770D3EDF653C8F6F43423C5 /* Pods_BC_Sample_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9398D783E6459B9314ADB5E0 /* Pods_BC_Sample_App.framework */; };
 /* End PBXBuildFile section */
 
@@ -33,7 +33,7 @@
 		94BF116B2316D31600D895ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		94BF11752316E2F900D895ED /* Demo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Demo.swift; sourceTree = "<group>"; };
 		94BF11792316F3CE00D895ED /* VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
-		94BF117B2317218300D895ED /* AdvertisingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisingViewController.swift; sourceTree = "<group>"; };
+		94BF117B2317218300D895ED /* BCIMAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCIMAViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,7 +109,7 @@
 			children = (
 				94BF11612316D31100D895ED /* ViewController.swift */,
 				94BF11792316F3CE00D895ED /* VideoViewController.swift */,
-				94BF117B2317218300D895ED /* AdvertisingViewController.swift */,
+				94BF117B2317218300D895ED /* BCIMAViewController.swift */,
 				947DCB0723185A30001E9A76 /* BCOV+helper.swift */,
 			);
 			path = Controller;
@@ -259,7 +259,7 @@
 			files = (
 				94BF11622316D31100D895ED /* ViewController.swift in Sources */,
 				947DCB0823185A30001E9A76 /* BCOV+helper.swift in Sources */,
-				94BF117C2317218300D895ED /* AdvertisingViewController.swift in Sources */,
+				94BF117C2317218300D895ED /* BCIMAViewController.swift in Sources */,
 				94BF11602316D31100D895ED /* AppDelegate.swift in Sources */,
 				94BF117A2316F3CE00D895ED /* VideoViewController.swift in Sources */,
 				94BF11762316E2F900D895ED /* Demo.swift in Sources */,

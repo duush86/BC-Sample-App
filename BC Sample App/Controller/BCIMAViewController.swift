@@ -11,7 +11,7 @@ import BrightcovePlayerSDK
 import BrightcoveIMA
 import GoogleInteractiveMediaAds
 
-class AdvertisingViewController: UIViewController {
+class BCIMAViewController: UIViewController {
     
     @IBOutlet weak var videoContainerView: UIView!
     var selectedDemo: Demo?
@@ -169,7 +169,7 @@ class AdvertisingViewController: UIViewController {
 
 // MARK: - BCOVPlaybackControllerDelegate
 
-extension AdvertisingViewController: BCOVPlaybackControllerDelegate {
+extension BCIMAViewController: BCOVPlaybackControllerDelegate {
     
     func playbackController(_ controller: BCOVPlaybackController!, didAdvanceTo session: BCOVPlaybackSession!) {
         print("ViewController Debug - Advanced to new session.")
@@ -243,7 +243,7 @@ extension ViewController: BCOVIMAPlaybackSessionDelegate {
 
 // MARK: - IMAWebOpenerDelegate
 
-extension AdvertisingViewController: IMAWebOpenerDelegate {
+extension BCIMAViewController: IMAWebOpenerDelegate {
     
     func webOpenerDidClose(inAppBrowser webOpener: NSObject!) {
         // Called when the in-app browser has closed.
