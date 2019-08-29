@@ -1,5 +1,5 @@
 # BC-Sample-App
-Antonio Orozco experiment to create BC Sample App 
+Antonio Orozco experiment to create BC Sample Apps 
 
 The purpose of this project is to gather as many Brightcove Sample Apps as possible under one project to rule them all...and to make life easier for demos and stuff. 
 
