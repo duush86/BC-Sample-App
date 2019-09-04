@@ -90,26 +90,43 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p9J-P5-eaw">
                                 <rect key="frame" x="0.0" y="140" width="414" height="722"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5sN-5J-Ngs">
-                                        <rect key="frame" x="240" y="-3" width="166" height="136"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zjr-pD-dsU">
+                                        <rect key="frame" x="229" y="8" width="177" height="128"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yZq-Nb-CYr">
-                                                <rect key="frame" x="19" y="7" width="129" height="122"/>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oTq-Bm-xBb">
+                                                <rect key="frame" x="83" y="40" width="74" height="48"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="37"/>
-                                                <state key="normal" title="X">
+                                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                <state key="normal" title="Close">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XES-qT-tYp">
+                                                <rect key="frame" x="83" y="40" width="74" height="48"/>
+                                                <color key="backgroundColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                <state key="normal" title="Close">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="closeOverlayTapped:" destination="ZdA-su-XIJ" eventType="touchUpInside" id="xeo-H8-DSV"/>
+                                                    <action selector="overlayPressed:" destination="ZdA-su-XIJ" eventType="touchUpInside" id="CiU-2D-uxC"/>
                                                 </connections>
                                             </button>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="XES-qT-tYp" secondAttribute="trailing" constant="20" id="E8b-E7-9gV"/>
+                                            <constraint firstItem="XES-qT-tYp" firstAttribute="top" secondItem="Zjr-pD-dsU" secondAttribute="top" constant="40" id="GB3-EA-QL1"/>
+                                            <constraint firstItem="XES-qT-tYp" firstAttribute="leading" secondItem="Zjr-pD-dsU" secondAttribute="leading" constant="83" id="Oiz-Lw-huA"/>
+                                            <constraint firstAttribute="bottom" secondItem="XES-qT-tYp" secondAttribute="bottom" constant="40" id="Vpa-2T-cpF"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="Zjr-pD-dsU" firstAttribute="top" secondItem="p9J-P5-eaw" secondAttribute="topMargin" id="aEW-v2-sdG"/>
+                                    <constraint firstItem="Zjr-pD-dsU" firstAttribute="trailing" secondItem="p9J-P5-eaw" secondAttribute="trailingMargin" id="oiW-LA-0xd"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -122,8 +139,7 @@
                         <viewLayoutGuide key="safeArea" id="Y8C-ON-UIk"/>
                     </view>
                     <connections>
-                        <outlet property="CloseOVerlay" destination="5sN-5J-Ngs" id="im6-pC-YWo"/>
-                        <outlet property="closeOverlayTapped" destination="yZq-Nb-CYr" id="Eb0-Ks-RAG"/>
+                        <outlet property="overlayView" destination="Zjr-pD-dsU" id="tGp-Sg-Bxd"/>
                         <outlet property="videoContainerView" destination="p9J-P5-eaw" id="8EV-5o-KAz"/>
                     </connections>
                 </viewController>

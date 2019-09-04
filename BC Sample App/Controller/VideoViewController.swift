@@ -13,9 +13,8 @@ class VideoViewController: UIViewController, BCOVPlaybackControllerDelegate {
     
     @IBOutlet weak var videoContainerView: UIView!
     var selectedDemo: Demo?
-    @IBOutlet weak var CloseOVerlay: UIView!
-    @IBOutlet weak var closeOverlayTapped: UIButton!
-
+    @IBOutlet weak var overlayView: UIView!
+    
     
     private lazy var playerView: BCOVPUIPlayerView? = {
         let options = BCOVPUIPlayerViewOptions()
@@ -49,7 +48,7 @@ class VideoViewController: UIViewController, BCOVPlaybackControllerDelegate {
         _playbackController.isAutoPlay = true
         
         self.playerView?.playbackController = _playbackController
-        self.playerView?.overlayView.addSubview(CloseOVerlay)
+        self.playerView?.overlayView.addSubview(overlayView)
 
         
         
@@ -74,12 +73,12 @@ class VideoViewController: UIViewController, BCOVPlaybackControllerDelegate {
     }
     
 
-    @IBAction func closeOverlayTapped(_ sender: UIButton) {
+    @IBAction func overlayPressed(_ sender: UIButton) {
         print("user tapped")
         self.dismiss(animated: true, completion: nil)
         _ = navigationController?.popToRootViewController(animated: true)
-
     }
+    
     
     private func requestContentFromPlaybackService() {
         
