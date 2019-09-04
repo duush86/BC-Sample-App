@@ -89,6 +89,26 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p9J-P5-eaw">
                                 <rect key="frame" x="0.0" y="140" width="414" height="722"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5sN-5J-Ngs">
+                                        <rect key="frame" x="240" y="-3" width="166" height="136"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yZq-Nb-CYr">
+                                                <rect key="frame" x="19" y="7" width="129" height="122"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="37"/>
+                                                <state key="normal" title="X">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="closeOverlayTapped:" destination="ZdA-su-XIJ" eventType="touchUpInside" id="xeo-H8-DSV"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </view>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
@@ -102,12 +122,14 @@
                         <viewLayoutGuide key="safeArea" id="Y8C-ON-UIk"/>
                     </view>
                     <connections>
+                        <outlet property="CloseOVerlay" destination="5sN-5J-Ngs" id="im6-pC-YWo"/>
+                        <outlet property="closeOverlayTapped" destination="yZq-Nb-CYr" id="Eb0-Ks-RAG"/>
                         <outlet property="videoContainerView" destination="p9J-P5-eaw" id="8EV-5o-KAz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="07q-p8-C9D" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1036" y="-179"/>
+            <point key="canvasLocation" x="1034.7826086956522" y="-179.46428571428569"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="2Hp-PY-2bS">

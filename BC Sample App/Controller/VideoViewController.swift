@@ -13,18 +13,21 @@ class VideoViewController: UIViewController, BCOVPlaybackControllerDelegate {
     
     @IBOutlet weak var videoContainerView: UIView!
     var selectedDemo: Demo?
+    @IBOutlet weak var CloseOVerlay: UIView!
+    @IBOutlet weak var closeOverlayTapped: UIButton!
+
     
     private lazy var playerView: BCOVPUIPlayerView? = {
         let options = BCOVPUIPlayerViewOptions()
         options.presentingViewController = self
-        
+    
         let controlView = BCOVPUIBasicControlView.withVODLayout()
-        guard let _playerView = BCOVPUIPlayerView(playbackController: nil, options: options, controlsView: controlView) else {
-            return nil
-        }
+        
+        guard let _playerView = BCOVPUIPlayerView(playbackController: nil, options: options, controlsView: controlView) else { return nil }
         
         // Add to parent view
         self.videoContainerView.addSubview(_playerView)
+        
         _playerView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             _playerView.topAnchor.constraint(equalTo: self.videoContainerView.topAnchor),
@@ -32,9 +35,10 @@ class VideoViewController: UIViewController, BCOVPlaybackControllerDelegate {
             _playerView.leftAnchor.constraint(equalTo: self.videoContainerView.leftAnchor),
             _playerView.bottomAnchor.constraint(equalTo: self.videoContainerView.bottomAnchor)
             ])
-        
         return _playerView
     }()
+    
+    
     
     private lazy var playbackController: BCOVPlaybackController? = {
 
@@ -45,17 +49,24 @@ class VideoViewController: UIViewController, BCOVPlaybackControllerDelegate {
         _playbackController.isAutoPlay = true
         
         self.playerView?.playbackController = _playbackController
+        self.playerView?.overlayView.addSubview(CloseOVerlay)
+
+        
         
         return _playbackController
     }()
+    
+    
     
     private lazy var playbackService: BCOVPlaybackService = {
         return BCOVPlaybackService(accountId: kViewControllerAccountID, policyKey: kViewControllerPlaybackServicePolicyKey)
     }()
     
+   // private lazy var contentOverViewView:
 
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         let _ = playerView
         let _ = playbackController
@@ -63,6 +74,12 @@ class VideoViewController: UIViewController, BCOVPlaybackControllerDelegate {
     }
     
 
+    @IBAction func closeOverlayTapped(_ sender: UIButton) {
+        print("user tapped")
+        self.dismiss(animated: true, completion: nil)
+        _ = navigationController?.popToRootViewController(animated: true)
+
+    }
     
     private func requestContentFromPlaybackService() {
         
