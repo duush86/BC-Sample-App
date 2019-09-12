@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		940A522B232B04F300B85A04 /* PlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940A522A232B04F300B85A04 /* PlaylistViewController.swift */; };
+		940A522D232B05AE00B85A04 /* BC.plist in Resources */ = {isa = PBXBuildFile; fileRef = 940A522C232B05AE00B85A04 /* BC.plist */; };
 		947DCB0823185A30001E9A76 /* BCOV+helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947DCB0723185A30001E9A76 /* BCOV+helper.swift */; };
 		94BF11602316D31100D895ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BF115F2316D31100D895ED /* AppDelegate.swift */; };
 		94BF11622316D31100D895ED /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BF11612316D31100D895ED /* ViewController.swift */; };
@@ -23,6 +25,8 @@
 		2B102DB182C1848068755A85 /* Pods-BC Sample App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BC Sample App.debug.xcconfig"; path = "Target Support Files/Pods-BC Sample App/Pods-BC Sample App.debug.xcconfig"; sourceTree = "<group>"; };
 		4080C37DC16A875C48644A56 /* Pods-BC Sample App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BC Sample App.release.xcconfig"; path = "Target Support Files/Pods-BC Sample App/Pods-BC Sample App.release.xcconfig"; sourceTree = "<group>"; };
 		9398D783E6459B9314ADB5E0 /* Pods_BC_Sample_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BC_Sample_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		940A522A232B04F300B85A04 /* PlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistViewController.swift; sourceTree = "<group>"; };
+		940A522C232B05AE00B85A04 /* BC.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = BC.plist; sourceTree = "<group>"; };
 		947DCB0723185A30001E9A76 /* BCOV+helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BCOV+helper.swift"; sourceTree = "<group>"; };
 		94BF115C2316D31100D895ED /* BC Sample App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BC Sample App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		94BF115F2316D31100D895ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -56,6 +60,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		940A5227232AFDAE00B85A04 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				947DCB0723185A30001E9A76 /* BCOV+helper.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		94BF11532316D31100D895ED = {
 			isa = PBXGroup;
 			children = (
@@ -78,11 +90,13 @@
 			isa = PBXGroup;
 			children = (
 				94BF115F2316D31100D895ED /* AppDelegate.swift */,
-				94BF11722316D33600D895ED /* View */,
 				94BF11712316D32500D895ED /* Model */,
+				94BF11722316D33600D895ED /* View */,
 				94BF11732316D34D00D895ED /* Controller */,
+				940A5227232AFDAE00B85A04 /* Helpers */,
 				94BF11662316D31600D895ED /* Assets.xcassets */,
 				94BF116B2316D31600D895ED /* Info.plist */,
+				940A522C232B05AE00B85A04 /* BC.plist */,
 			);
 			path = "BC Sample App";
 			sourceTree = "<group>";
@@ -110,7 +124,7 @@
 				94BF11612316D31100D895ED /* ViewController.swift */,
 				94BF11792316F3CE00D895ED /* VideoViewController.swift */,
 				94BF117B2317218300D895ED /* BCIMAViewController.swift */,
-				947DCB0723185A30001E9A76 /* BCOV+helper.swift */,
+				940A522A232B04F300B85A04 /* PlaylistViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -188,6 +202,7 @@
 				94BF116A2316D31600D895ED /* LaunchScreen.storyboard in Resources */,
 				94BF11672316D31600D895ED /* Assets.xcassets in Resources */,
 				94BF11652316D31100D895ED /* Main.storyboard in Resources */,
+				940A522D232B05AE00B85A04 /* BC.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,6 +274,7 @@
 			files = (
 				94BF11622316D31100D895ED /* ViewController.swift in Sources */,
 				947DCB0823185A30001E9A76 /* BCOV+helper.swift in Sources */,
+				940A522B232B04F300B85A04 /* PlaylistViewController.swift in Sources */,
 				94BF117C2317218300D895ED /* BCIMAViewController.swift in Sources */,
 				94BF11602316D31100D895ED /* AppDelegate.swift in Sources */,
 				94BF117A2316F3CE00D895ED /* VideoViewController.swift in Sources */,

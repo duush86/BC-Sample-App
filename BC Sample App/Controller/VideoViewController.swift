@@ -75,7 +75,6 @@ class VideoViewController: UIViewController, BCOVPlaybackControllerDelegate {
 
     @IBAction func overlayPressed(_ sender: UIButton) {
         print("user tapped")
-        self.dismiss(animated: true, completion: nil)
         _ = navigationController?.popToRootViewController(animated: true)
     }
     

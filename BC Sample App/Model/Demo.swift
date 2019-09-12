@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Demo {
+struct Demo {
     var content_id: String = ""
     var name: String = ""
     var loadWithActivity: String = ""
