@@ -155,13 +155,47 @@
                     <view key="view" contentMode="scaleToFill" id="Bvr-VX-kMB">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Wwb-MA-0Xw">
+                                <rect key="frame" x="0.0" y="459" width="414" height="403"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="403" id="X7g-xb-zgB"/>
+                                </constraints>
+                                <tableView key="tableFooterView" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="oWh-Vv-NuV">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="403"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="403" id="f8c-xt-suS"/>
+                                    </constraints>
+                                </tableView>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wst-ql-Wo1">
+                                <rect key="frame" x="0.0" y="140" width="414" height="311"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Wwb-MA-0Xw" firstAttribute="bottom" secondItem="93U-Gv-Mfz" secondAttribute="bottom" id="0r8-nY-L9z"/>
+                            <constraint firstItem="Wst-ql-Wo1" firstAttribute="leading" secondItem="93U-Gv-Mfz" secondAttribute="leading" id="GGI-m7-Shs"/>
+                            <constraint firstItem="Wst-ql-Wo1" firstAttribute="top" secondItem="93U-Gv-Mfz" secondAttribute="top" id="SMg-Sj-0HH"/>
+                            <constraint firstItem="Wwb-MA-0Xw" firstAttribute="leading" secondItem="93U-Gv-Mfz" secondAttribute="leading" id="Sa9-N4-0ON"/>
+                            <constraint firstItem="Wwb-MA-0Xw" firstAttribute="trailing" secondItem="93U-Gv-Mfz" secondAttribute="trailing" id="WP9-Gq-V96"/>
+                            <constraint firstItem="Wwb-MA-0Xw" firstAttribute="top" secondItem="Wst-ql-Wo1" secondAttribute="bottom" constant="8" id="dgQ-xI-Bu6"/>
+                            <constraint firstItem="Wst-ql-Wo1" firstAttribute="trailing" secondItem="93U-Gv-Mfz" secondAttribute="trailing" id="kjE-3c-Sac"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="93U-Gv-Mfz"/>
                     </view>
+                    <connections>
+                        <outlet property="playlistViewController" destination="Wwb-MA-0Xw" id="ZTr-AF-aRd"/>
+                        <outlet property="videoView" destination="Wst-ql-Wo1" id="Gqp-v8-DoP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l7G-LY-St6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1002" y="637"/>
+            <point key="canvasLocation" x="1001.4492753623189" y="636.83035714285711"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="2Hp-PY-2bS">

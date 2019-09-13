@@ -36,9 +36,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        //cell.textLabel?.text = "This is row \(indexPath.row)"
-        cell.textLabel?.text = arrayOfDemos[indexPath.row].name
-        
+        cell.textLabel?.text = arrayOfDemos[indexPath.row].name        
         return cell
     }
     

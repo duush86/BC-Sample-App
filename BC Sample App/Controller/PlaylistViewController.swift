@@ -7,35 +7,142 @@
 //
 
 import UIKit
+import BrightcovePlayerSDK
+import SwiftyJSON
 
-class PlaylistViewController: UIViewController {
+
+class PlaylistViewController: UIViewController,BCOVPlaybackControllerDelegate,UITableViewDataSource, UITableViewDelegate {
+    
+    
     var selectedDemo: Demo?
-
-
+    @IBOutlet weak var playlistViewController: UITableView!
+    @IBOutlet weak var videoView: UIView!
+    var videosOnPlaylist: [BCOVVideo] = []
+    var playlistToPlay: BCOVPlaylist!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        playlistViewController.delegate = self
+        playlistViewController.dataSource = self
+        let _ = playerView
+        let _ = playbackController
 
-        // Do any additional setup after loading the view.
     }
-    override func viewWillAppear(_ animated: Bool) {
-        let path = Bundle.main.path(forResource: "BC", ofType: "plist")
-        let  API_Keys = NSDictionary(contentsOfFile: path!)
-        let CLIENT_ID = API_Keys!["ClientID"] ?? "nil"
-        let SECRET_ID = API_Keys!["SecretID"] ?? "nil"
+    
+    private lazy var playerView: BCOVPUIPlayerView? = {
+        let options = BCOVPUIPlayerViewOptions()
+        options.presentingViewController = self
         
-        print(CLIENT_ID)
-        print(SECRET_ID)
+        let controlView = BCOVPUIBasicControlView.withVODLayout()
+        
+        guard let _playerView = BCOVPUIPlayerView(playbackController: nil, options: options, controlsView: controlView) else { return nil }
+        
+        // Add to parent view
+        self.videoView.addSubview(_playerView)
+        
+        _playerView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            _playerView.topAnchor.constraint(equalTo: self.videoView.topAnchor),
+            _playerView.rightAnchor.constraint(equalTo: self.videoView.rightAnchor),
+            _playerView.leftAnchor.constraint(equalTo: self.videoView.leftAnchor),
+            _playerView.bottomAnchor.constraint(equalTo: self.videoView.bottomAnchor)
+            ])
+        return _playerView
+    }()
+    
+    
+    
+    private lazy var playbackController: BCOVPlaybackController? = {
+        
+        guard let _playbackController =  (BCOVPlayerSDKManager.shared()?.createPlaybackController()) else { return nil }
+        
+        _playbackController.delegate = self
+        _playbackController.isAutoAdvance = true
+        _playbackController.isAutoPlay = true
+        
+        self.playerView?.playbackController = _playbackController        
+        return _playbackController
+    }()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        requestContentFromPlaybackService()
+    }
+    private lazy var playbackService: BCOVPlaybackService = {
+        return BCOVPlaybackService(accountId: kViewControllerAccountID, policyKey: kViewControllerPlaybackServicePolicyKey)
+    }()
+    
+    //MARK: INITIAL PLAYBACK SERVICE TO GET PLAYLIST DETAILLS
+    private func requestContentFromPlaybackService() {
+        var videosOnPL: [BCOVVideo] = []
+         playbackService.findPlaylist(withPlaylistID: selectedDemo?.content_id, parameters: nil)
+         { [weak self] (plist: BCOVPlaylist?, jsonResponse: [AnyHashable:Any]?, error: Error?) in
+            if let playlist = plist {
+                    for video in playlist.videos {
+                        if let _video = video as? BCOVVideo {
+                            videosOnPL.append(_video)
+                        }
+                    }
+                self!.handleVideosToDisplay(withVideos: videosOnPL,withPlaylist: playlist)
+            }
+            if let error = error {
+                print("Error retrieving video: \(error.localizedDescription)")
+            }
+            
+        }
+    }
+    //MARK: FILL NUMBER OF CELLS WITH THE NUMBERS
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return videosOnPlaylist.count
+    }
+    //MARK: FILL CELLS WITH THE VIDEO NAMES
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        let videoName = JSON(videosOnPlaylist[indexPath.row].properties)["name"]
+        cell.textLabel?.text = videoName.stringValue
+        return cell
+    }
+    //MARK: CALL playVideoFromPlaylist WHEN A ROW is selected
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        playVideoFromPlaylist(with: videosOnPlaylist[indexPath.row])
+    }
+    
+    
+    //MARK: COPY VIDEOS AND PLAYLIST FOR GENERAL CONSUMPTION
+    private func handleVideosToDisplay(withVideos videos:  [BCOVVideo],withPlaylist playlist: BCOVPlaylist){
+        videosOnPlaylist = videos
+        playlistToPlay = playlist
+        playlistViewController.reloadData()
+        playVideoFromPlaylist(with: videosOnPlaylist[0])
 
     }
+    
+    //MARK: GET THE ACTUAL VIDEO TO PLAY
+    private func playVideoFromPlaylist(with video:BCOVVideo){
+      //  print(JSON(video.properties)["id"])
+        playbackService.findVideo(withVideoID: JSON(video.properties)["id"].stringValue, parameters: nil) { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable:Any]?, error: Error?) in
+            if let video = video {
+                let playlist = BCOVPlaylist(video: video)
+                let updatedPlaylist = playlist?.update({ (mutablePlaylist: BCOVMutablePlaylist?) in
+                    guard let mutablePlaylist = mutablePlaylist else {
+                        return
+                    }
+                    var updatedVideos:[BCOVVideo] = []
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+                    for video in mutablePlaylist.videos {
+                        if let _video = video as? BCOVVideo {
+                            updatedVideos.append(_video)
+                        }
+                    }
+                    mutablePlaylist.videos = updatedVideos
+                })
+                if let _updatedPlaylist = updatedPlaylist {
+                    self?.playbackController?.setVideos(_updatedPlaylist.videos as NSFastEnumeration)
+                }
+            }
+            if let error = error {
+                print("Error retrieving video: \(error.localizedDescription)")
+            }
+        }
     }
-    */
 
 }

@@ -61,9 +61,6 @@ class VideoViewController: UIViewController, BCOVPlaybackControllerDelegate {
         return BCOVPlaybackService(accountId: kViewControllerAccountID, policyKey: kViewControllerPlaybackServicePolicyKey)
     }()
     
-   // private lazy var contentOverViewView:
-
-    
     override func viewDidLoad() {
         
         super.viewDidLoad()
