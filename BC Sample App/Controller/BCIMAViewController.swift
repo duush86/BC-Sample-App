@@ -17,35 +17,54 @@ class BCIMAViewController: UIViewController {
     var selectedDemo: Demo?
 
     private lazy var playerView: BCOVPUIPlayerView? = {
+        
         let options = BCOVPUIPlayerViewOptions()
+        
         options.presentingViewController = self
         
         // Create PlayerUI views with normal VOD controls.
+        
         let controlView = BCOVPUIBasicControlView.withVODLayout()
+        
         guard let _playerView = BCOVPUIPlayerView(playbackController: nil, options: options, controlsView: controlView) else {
+        
             return nil
+        
         }
         
         // Add to parent view
         self.videoContainerView.addSubview(_playerView)
+        
         _playerView.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
+        
             _playerView.topAnchor.constraint(equalTo: self.videoContainerView.topAnchor),
+            
             _playerView.rightAnchor.constraint(equalTo: self.videoContainerView.rightAnchor),
+            
             _playerView.leftAnchor.constraint(equalTo: self.videoContainerView.leftAnchor),
+            
             _playerView.bottomAnchor.constraint(equalTo: self.videoContainerView.bottomAnchor)
+            
             ])
         
         return _playerView
+        
     }()
     
     private lazy var playbackController: BCOVPlaybackController? = {
+        
         let imaSettings = IMASettings()
+        
         imaSettings.ppid = imaPublishID
+        
         imaSettings.language = imaLanguage
         
         let renderSettings = IMAAdsRenderingSettings()
+        
         renderSettings.webOpenerPresentingController = self
+        
         renderSettings.webOpenerDelegate = self
         
         // BCOVIMAAdsRequestPolicy provides methods to specify VAST or VMAP/Server Side Ad Rules. Select the appropriate method to select your ads policy.
@@ -55,12 +74,22 @@ class BCIMAViewController: UIViewController {
         // before it is used to load ads.
         let imaPlaybackSessionOptions = [kBCOVIMAOptionIMAPlaybackSessionDelegateKey: self]
         
-        guard let _playbackController = BCOVPlayerSDKManager.shared()?.createIMAPlaybackController(with: imaSettings, adsRenderingSettings: renderSettings, adsRequestPolicy: adsRequestPolicy, adContainer: playerView?.contentOverlayView, companionSlots: nil, viewStrategy: nil, options: imaPlaybackSessionOptions) else {
-            return nil
-        }
+        guard let _playbackController = BCOVPlayerSDKManager.shared()?.createIMAPlaybackController(
+                                         with: imaSettings,
+                                         adsRenderingSettings: renderSettings,
+                                         adsRequestPolicy: adsRequestPolicy,
+                                         adContainer: playerView?.contentOverlayView,
+                                         companionSlots: nil,
+                                         viewStrategy: nil,
+                                         options: imaPlaybackSessionOptions)
+                        else {
+                                return nil
+                        }
         
         _playbackController.delegate = self
+        
         _playbackController.isAutoAdvance = true
+        
         _playbackController.isAutoPlay = true
         
         self.playerView?.playbackController = _playbackController
@@ -84,20 +113,29 @@ class BCIMAViewController: UIViewController {
     }()
     
     private lazy var playbackService: BCOVPlaybackService = {
+       
         return BCOVPlaybackService(accountId: kViewControllerAccountID, policyKey: kViewControllerPlaybackServicePolicyKey)
+    
     }()
     
     private var notificationReceipt: AnyObject?
+   
     private var adIsPlaying = false
+    
     private var isBrowserOpen = false
     
     // MARK: - View Lifecyle
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        
         let _ = playerView
+        
         let _ = playbackController
+        
         resumeAdAfterForeground()
+        
         requestContentFromPlaybackService()
     }
     

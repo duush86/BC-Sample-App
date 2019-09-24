@@ -171,38 +171,38 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="faU-kJ-VTk">
-                                                    <rect key="frame" x="167" y="11" width="80.5" height="23"/>
+                                                    <rect key="frame" x="219" y="11" width="53.5" height="23"/>
                                                     <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="V26-YQ-oPa">
-                                                    <rect key="frame" x="20" y="7" width="130" height="85"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V26-YQ-oPa">
+                                                    <rect key="frame" x="0.0" y="0.0" width="154" height="95"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="130" id="2RQ-Gp-GiB"/>
-                                                        <constraint firstAttribute="height" constant="85" id="PbC-3w-6oT"/>
+                                                        <constraint firstAttribute="height" constant="95" id="cIg-Vx-RdY"/>
+                                                        <constraint firstAttribute="width" constant="154" id="y65-Ww-V6g"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Duration" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dOk-7b-B9O">
-                                                    <rect key="frame" x="167" y="42" width="227" height="32.5"/>
+                                                    <rect key="frame" x="219" y="44" width="175" height="12"/>
                                                     <fontDescription key="fontDescription" type="system" weight="thin" pointSize="10"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="faU-kJ-VTk" firstAttribute="top" secondItem="nyf-P7-0pt" secondAttribute="topMargin" id="1GG-0J-2dt"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="dOk-7b-B9O" secondAttribute="bottom" constant="14.5" id="AEU-rM-G50"/>
-                                                <constraint firstItem="V26-YQ-oPa" firstAttribute="leading" secondItem="nyf-P7-0pt" secondAttribute="leading" constant="20" id="Bp0-Aj-dgJ"/>
-                                                <constraint firstItem="dOk-7b-B9O" firstAttribute="trailing" secondItem="nyf-P7-0pt" secondAttribute="trailingMargin" id="ELC-Jd-gdG"/>
-                                                <constraint firstItem="faU-kJ-VTk" firstAttribute="leading" secondItem="V26-YQ-oPa" secondAttribute="trailing" constant="17" id="Gjl-P1-5jI"/>
-                                                <constraint firstItem="dOk-7b-B9O" firstAttribute="top" secondItem="faU-kJ-VTk" secondAttribute="bottom" constant="8" id="Gof-pC-j46"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="faU-kJ-VTk" secondAttribute="trailing" constant="146.5" id="OeW-Gh-eld"/>
-                                                <constraint firstItem="V26-YQ-oPa" firstAttribute="top" secondItem="nyf-P7-0pt" secondAttribute="top" constant="7" id="OzE-7e-IbB"/>
-                                                <constraint firstItem="dOk-7b-B9O" firstAttribute="top" secondItem="faU-kJ-VTk" secondAttribute="bottom" constant="8" id="aY9-UU-Dvm"/>
-                                                <constraint firstItem="faU-kJ-VTk" firstAttribute="leading" secondItem="V26-YQ-oPa" secondAttribute="trailing" constant="17" id="d1q-YG-xni"/>
-                                                <constraint firstAttribute="bottom" secondItem="V26-YQ-oPa" secondAttribute="bottom" constant="7.5" id="rns-7G-Npd"/>
-                                                <constraint firstItem="dOk-7b-B9O" firstAttribute="leading" secondItem="V26-YQ-oPa" secondAttribute="trailing" constant="17" id="uMe-sL-aaf"/>
+                                                <constraint firstItem="faU-kJ-VTk" firstAttribute="leading" secondItem="V26-YQ-oPa" secondAttribute="trailing" constant="65" id="3wB-ZZ-hqc"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="dOk-7b-B9O" secondAttribute="bottom" constant="33" id="7BN-C9-cka"/>
+                                                <constraint firstItem="dOk-7b-B9O" firstAttribute="top" secondItem="faU-kJ-VTk" secondAttribute="bottom" constant="10" id="Hgf-ba-RSa"/>
+                                                <constraint firstItem="dOk-7b-B9O" firstAttribute="leading" secondItem="V26-YQ-oPa" secondAttribute="trailing" constant="65" id="N5p-CS-utB"/>
+                                                <constraint firstAttribute="bottom" secondItem="V26-YQ-oPa" secondAttribute="bottom" id="Ryi-WJ-dC7"/>
+                                                <constraint firstItem="V26-YQ-oPa" firstAttribute="top" secondItem="nyf-P7-0pt" secondAttribute="top" id="XQM-A9-ymh"/>
+                                                <constraint firstItem="dOk-7b-B9O" firstAttribute="trailing" secondItem="nyf-P7-0pt" secondAttribute="trailingMargin" id="k9s-Js-Kc4"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="faU-kJ-VTk" secondAttribute="trailing" constant="121.5" id="kNS-1o-gX7"/>
+                                                <constraint firstItem="faU-kJ-VTk" firstAttribute="top" secondItem="nyf-P7-0pt" secondAttribute="topMargin" id="lrC-Xu-o2M"/>
+                                                <constraint firstItem="dOk-7b-B9O" firstAttribute="top" secondItem="faU-kJ-VTk" secondAttribute="bottom" constant="10" id="mUu-eg-Cmu"/>
+                                                <constraint firstItem="V26-YQ-oPa" firstAttribute="leading" secondItem="nyf-P7-0pt" secondAttribute="leading" id="wQF-pp-JHp"/>
+                                                <constraint firstItem="faU-kJ-VTk" firstAttribute="leading" secondItem="V26-YQ-oPa" secondAttribute="trailing" constant="65" id="yIn-Sh-CHc"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
