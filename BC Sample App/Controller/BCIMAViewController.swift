@@ -167,38 +167,19 @@ class BCIMAViewController: UIViewController {
         // you choose to hard code it into your app, that you provide a mechanism to
         // update it without having to submit an update to your app.
         
-        playbackService.findVideo(withVideoID: selectedDemo?.content_id, parameters: nil) { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable:Any]?, error: Error?) in
+        
+        playbackService.findVideo(withVideoID: selectedDemo?.content_id, parameters: nil) { (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) -> Void in
             
-            if let video = video {
+            if let v = video {
                 
-                let playlist = BCOVPlaylist(video: video)
-                let updatedPlaylist = playlist?.update({ (mutablePlaylist: BCOVMutablePlaylist?) in
-                    
-                    guard let mutablePlaylist = mutablePlaylist else {
-                        return
-                    }
-                    
-                    var updatedVideos:[BCOVVideo] = []
-                    
-                    for video in mutablePlaylist.videos {
-                        if let _video = video as? BCOVVideo {
-                            updatedVideos.append(_video.updateVideo(withVMAPTag: imaAdTagURL))
-                        }
-                    }
-                    
-                    mutablePlaylist.videos = updatedVideos
-                    
-                })
-                
-                if let _updatedPlaylist = updatedPlaylist {
-                    self?.playbackController?.setVideos(_updatedPlaylist.videos as NSFastEnumeration)
-                }
-            }
+                let updatedVideo: BCOVVideo = v.updateVideo(withVMAPTag: imaAdTagURL)
+                self.playbackController?.setVideos([updatedVideo] as NSArray)
             
-            if let error = error {
-                print("Error retrieving video: \(error.localizedDescription)")
-            }
+            } else {
             
+                print("ViewController Debug - Error retrieving video: \(error?.localizedDescription ?? "unknown error")")
+            
+            }
         }
         
     }

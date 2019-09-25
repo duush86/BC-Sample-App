@@ -15,7 +15,6 @@ class VideoViewController: UIViewController, BCOVPlaybackControllerDelegate {
     var selectedDemo: Demo?
     @IBOutlet weak var overlayView: UIView!
     
-    
     private lazy var playerView: BCOVPUIPlayerView? = {
         let options = BCOVPUIPlayerViewOptions()
         options.presentingViewController = self
@@ -80,39 +79,15 @@ class VideoViewController: UIViewController, BCOVPlaybackControllerDelegate {
         
   
         
-        playbackService.findVideo(withVideoID: selectedDemo?.content_id, parameters: nil) { [weak self] (video: BCOVVideo?, jsonResponse: [AnyHashable:Any]?, error: Error?) in
+        playbackService.findVideo(withVideoID: selectedDemo?.content_id, parameters: nil) { (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) -> Void in
             
-            if let video = video {
-                
-                let playlist = BCOVPlaylist(video: video)
-                let updatedPlaylist = playlist?.update({ (mutablePlaylist: BCOVMutablePlaylist?) in
-                    
-                    guard let mutablePlaylist = mutablePlaylist else {
-                        return
-                    }
-                    
-                    var updatedVideos:[BCOVVideo] = []
-                    
-                    for video in mutablePlaylist.videos {
-                        if let _video = video as? BCOVVideo {
-                            updatedVideos.append(_video)
-                        }
-                    }
-                    
-                    mutablePlaylist.videos = updatedVideos
-                    
-                })
-                
-                if let _updatedPlaylist = updatedPlaylist {
-                    self?.playbackController?.setVideos(_updatedPlaylist.videos as NSFastEnumeration)
-                }
+            if let v = video {
+                self.playbackController?.setVideos([v] as NSArray)
+            } else {
+                print("ViewController Debug - Error retrieving video: \(error?.localizedDescription ?? "unknown error")")
             }
-            
-            if let error = error {
-                print("Error retrieving video: \(error.localizedDescription)")
-            }
-            
         }
+    
         
     }
     

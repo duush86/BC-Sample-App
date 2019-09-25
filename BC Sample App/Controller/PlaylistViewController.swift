@@ -18,19 +18,14 @@ class PlaylistViewController: UIViewController,BCOVPlaybackControllerDelegate,UI
     
     @IBOutlet weak var videoView: UIView!
     
-    var videosOnPlaylist: [BCOVVideo] = []
-    
-    var playlistToPlay: BCOVPlaylist!
-    
     fileprivate var tasks = [URLSessionTask]()
     
-    var imagesOnPlayList: [UIImage?] = []
+    var videosFromPlaylist: [Video] = []
 
     
-    override func viewDidLoad() {
+    override func viewDidLoad() {  
         
         super.viewDidLoad()
-        
         
         playlistViewController.delegate = self
         
@@ -41,7 +36,6 @@ class PlaylistViewController: UIViewController,BCOVPlaybackControllerDelegate,UI
         let _ = playerView
         
         let _ = playbackController
-        
         
         
     }
@@ -114,29 +108,28 @@ class PlaylistViewController: UIViewController,BCOVPlaybackControllerDelegate,UI
     
     //MARK: INITIAL PLAYBACK SERVICE TO GET PLAYLIST DETAILLS
     private func requestContentFromPlaybackService() {
-       
-        var videosOnPL: [BCOVVideo] = []
-        var imagesOnPL: [UIImage] = []
         
-        playbackService.findPlaylist(withPlaylistID: selectedDemo?.content_id, parameters: nil)
-        
-        { [weak self] (plist: BCOVPlaylist?, jsonResponse: [AnyHashable:Any]?, error: Error?) in
+        playbackService.findPlaylist(withPlaylistID: selectedDemo?.content_id, parameters: nil) { [weak self] (plist: BCOVPlaylist?, jsonResponse: [AnyHashable:Any]?, error: Error?) in
         
             if let playlist = plist {
             
                 for video in playlist.videos {
                 
                     if let _video = video as? BCOVVideo {
-                    
-                        videosOnPL.append(_video)
-                        imagesOnPL.append(UIImage(named: "image-not-found.jpg")!)
-                        //imagesOnPL.append(nil)
                         
+                        let video: Video = Video(withTitle: JSON(_video.properties)["name"].stringValue,
+                                                 withVideoId: JSON(_video.properties)["id"].stringValue,
+                                                 withVideoDuration: JSON(_video.properties)["duration"].doubleValue,
+                                                 withShortDescription: nil,
+                                                 withThumbnailURL: JSON(_video.properties)["thumbnail"].url,
+                                                 withThumbnailImage: nil)
+                        
+                        self?.videosFromPlaylist.append(video)
                     }
                     
                 }
                 
-                self!.handleVideosToDisplay(withVideos: videosOnPL,withPlaylist: playlist, withImages: imagesOnPL)
+                self!.setInitialVideoAndRefreshTable()
             
             }
             
@@ -151,35 +144,39 @@ class PlaylistViewController: UIViewController,BCOVPlaybackControllerDelegate,UI
     //MARK: FILL NUMBER OF CELLS WITH THE NUMBERS
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        return videosOnPlaylist.count
+        return videosFromPlaylist.count
 
     }
     
     //MARK: FILL CELLS WITH THE VIDEO NAMES
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       
+        
         let playlistCell = tableView.dequeueReusableCell(withIdentifier: "videoOnPlaylist", for: indexPath) as! playlistTableViewCell
         
-        let videoName = JSON(videosOnPlaylist[indexPath.row].properties)["name"].stringValue
+        let videoName = videosFromPlaylist[indexPath.row].bcTitle
         
         playlistCell.videoName.text = videoName
         
-        var videoDuration = JSON(videosOnPlaylist[indexPath.row].properties)["duration"].doubleValue
         
+        var videoDuration = videosFromPlaylist[indexPath.row].bcVideoDuration
         
-        if let image = imagesOnPlayList[indexPath.row] {
+        if let image = videosFromPlaylist[indexPath.row].thumbnailImage {
           
-            downloadImageForVideo(forVideo: videosOnPlaylist[indexPath.row], onIndex: indexPath.row)
-            
             playlistCell.imageView?.image = image
-                    
+            
         } else {
-           
+            
+            playlistCell.imageView?.image = UIImage(named: "image-not-found.jpg")
+            
+            downloadImageForVideo(forVideo: videosFromPlaylist[indexPath.row], onIndex: indexPath.row)
         }
         
         videoDuration = videoDuration / 1000.0
         
         //Cases for seconds and minutes
+        
+        
         
         if videoDuration < 60.0 {
             
@@ -202,96 +199,55 @@ class PlaylistViewController: UIViewController,BCOVPlaybackControllerDelegate,UI
     //MARK: CALL playVideoFromPlaylist WHEN A ROW is selected
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        playVideoFromPlaylist(with: videosOnPlaylist[indexPath.row])
+        playVideoFromPlaylist(with: videosFromPlaylist[indexPath.row])
     
     }
     
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
       
-        indexPaths.forEach { self.downloadImageForVideo(forVideo: videosOnPlaylist[$0.row], onIndex: $0.row) }
+        indexPaths.forEach { self.downloadImageForVideo(forVideo: videosFromPlaylist[$0.row], onIndex: $0.row) }
 
     }
     
     func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
      
-        indexPaths.forEach { self.cancelDownloadingImageForVideo(forVideo: videosOnPlaylist[$0.row], onIndex: $0.row) }
+        indexPaths.forEach { self.cancelDownloadingImageForVideo(forVideo:  videosFromPlaylist[$0.row], onIndex: $0.row) }
 
     }
     
     
     
-    //MARK: COPY VIDEOS AND PLAYLIST FOR GENERAL CONSUMPTION
-    private func handleVideosToDisplay(withVideos videos:  [BCOVVideo],withPlaylist playlist: BCOVPlaylist, withImages images: [UIImage]){
+    //MARK: Set
+    private func setInitialVideoAndRefreshTable(){
        
-        videosOnPlaylist = videos
-        
-        playlistToPlay = playlist
-        
-        imagesOnPlayList = images
-       
-        playVideoFromPlaylist(with: videosOnPlaylist[0])
+        playVideoFromPlaylist(with: videosFromPlaylist[0])
         
         playlistViewController.reloadData()
 
     }
     
     //MARK: GET THE ACTUAL VIDEO TO PLAY
-    private func playVideoFromPlaylist(with video:BCOVVideo){
-      //  print(JSON(video.properties)["id"])
-        playbackService.findVideo(withVideoID: JSON(video.properties)["id"].stringValue, parameters: nil) { [weak self]
-            (video: BCOVVideo?, jsonResponse: [AnyHashable:Any]?, error: Error?) in
+    private func playVideoFromPlaylist(with video: Video){
+      
+        playbackService.findVideo(withVideoID: video.bcVideoId, parameters: nil) { (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) -> Void in
             
-            if let video = video {
+            if let v = video {
+              
+                self.playbackController?.setVideos([v] as NSArray)
             
-                let playlist = BCOVPlaylist(video: video)
-                
-                let updatedPlaylist = playlist?.update({ (mutablePlaylist: BCOVMutablePlaylist?) in
-                
-                    guard let mutablePlaylist = mutablePlaylist else {
-                    
-                        return
-                    
-                    }
-                    
-                    var updatedVideos:[BCOVVideo] = []
-
-                    for video in mutablePlaylist.videos {
-                    
-                        if let _video = video as? BCOVVideo {
-                        
-                            updatedVideos.append(_video)
-                        
-                        }
-                    
-                    }
-                    
-                    mutablePlaylist.videos = updatedVideos
-                
-                })
-                
-                if let _updatedPlaylist = updatedPlaylist {
-                    
-                    self?.playbackController?.setVideos(_updatedPlaylist.videos as NSFastEnumeration)
-                
-                }
+            } else {
+            
+                print("ViewController Debug - Error retrieving video: \(error?.localizedDescription ?? "unknown error")")
             
             }
-            
-            if let error = error {
-            
-                print("Error retrieving video: \(error.localizedDescription)")
-            
-            }
-        
         }
-    
     }
     
-    func downloadImageForVideo(forVideo: BCOVVideo, onIndex: Int){
+    func downloadImageForVideo(forVideo: Video, onIndex: Int){
         
-        let imageUrl = JSON(forVideo.properties)["thumbnail"].url
+        let imageUrl = forVideo.thumbnailURL
         
-        guard tasks.index(where: { $0.originalRequest?.url == imageUrl } ) == nil else {
+        guard tasks.firstIndex(where: { $0.originalRequest?.url == imageUrl } ) == nil else {
             
             // we are already downloading the image, move on.
             return
@@ -301,9 +257,9 @@ class PlaylistViewController: UIViewController,BCOVPlaybackControllerDelegate,UI
             DispatchQueue.main.async {
                
                 if let data = data, let image = UIImage(data: data) {
-                
                     
-                    self.imagesOnPlayList[onIndex] = image
+                    //self.imagesOnPlayList[onIndex] = image
+                    self.videosFromPlaylist[onIndex].thumbnailImage = image
                     
                     let indexPath = IndexPath(row: onIndex, section: 0)
                     
@@ -323,11 +279,11 @@ class PlaylistViewController: UIViewController,BCOVPlaybackControllerDelegate,UI
         tasks.append(task)
     }
     
-    func cancelDownloadingImageForVideo(forVideo: BCOVVideo, onIndex: Int){
+    func cancelDownloadingImageForVideo(forVideo: Video, onIndex: Int){
         
-        let imageUrl = JSON(forVideo.properties)["thumbnail"].url
+        let imageUrl = forVideo.thumbnailURL
         
-        guard let taskIndex = tasks.index(where: { $0.originalRequest?.url == imageUrl }) else {
+        guard let taskIndex = tasks.firstIndex(where: { $0.originalRequest?.url == imageUrl }) else {
         
             return
         

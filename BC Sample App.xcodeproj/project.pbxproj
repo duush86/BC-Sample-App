@@ -19,6 +19,7 @@
 		94BF11762316E2F900D895ED /* Demo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BF11752316E2F900D895ED /* Demo.swift */; };
 		94BF117A2316F3CE00D895ED /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BF11792316F3CE00D895ED /* VideoViewController.swift */; };
 		94BF117C2317218300D895ED /* BCIMAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BF117B2317218300D895ED /* BCIMAViewController.swift */; };
+		94FA3145233BAE09006AB50D /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FA3144233BAE09006AB50D /* Video.swift */; };
 		F770D3EDF653C8F6F43423C5 /* Pods_BC_Sample_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9398D783E6459B9314ADB5E0 /* Pods_BC_Sample_App.framework */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +41,7 @@
 		94BF11752316E2F900D895ED /* Demo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Demo.swift; sourceTree = "<group>"; };
 		94BF11792316F3CE00D895ED /* VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 		94BF117B2317218300D895ED /* BCIMAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCIMAViewController.swift; sourceTree = "<group>"; };
+		94FA3144233BAE09006AB50D /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				94BF11752316E2F900D895ED /* Demo.swift */,
+				94FA3144233BAE09006AB50D /* Video.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -287,6 +290,7 @@
 				947DCB0823185A30001E9A76 /* BCOV+helper.swift in Sources */,
 				940A522B232B04F300B85A04 /* PlaylistViewController.swift in Sources */,
 				94BF117C2317218300D895ED /* BCIMAViewController.swift in Sources */,
+				94FA3145233BAE09006AB50D /* Video.swift in Sources */,
 				94BF11602316D31100D895ED /* AppDelegate.swift in Sources */,
 				94BF117A2316F3CE00D895ED /* VideoViewController.swift in Sources */,
 				94BF11762316E2F900D895ED /* Demo.swift in Sources */,

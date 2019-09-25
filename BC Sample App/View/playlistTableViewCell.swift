@@ -11,7 +11,6 @@ import UIKit
 class playlistTableViewCell: UITableViewCell {
     
     @IBOutlet weak var videoThumbnail: UIImageView!
-    
     @IBOutlet weak var videoName: UILabel!
     @IBOutlet weak var videoDuration: UILabel!
     
