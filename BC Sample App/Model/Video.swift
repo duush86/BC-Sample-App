@@ -11,18 +11,29 @@ import UIKit
 struct Video {
     
     var bcTitle: String
+    
     var bcVideoId: String
+    
     var bcVideoDuration: Double
+    
     var bcShortDescription: String?
+    
     var thumbnailURL: URL?
+    
     var thumbnailImage: UIImage?
+    
+    var isOffline: Bool?
+    
+    var size: String?
     
     init(withTitle: String,
          withVideoId: String,
          withVideoDuration: Double,
          withShortDescription: String? = nil,
          withThumbnailURL: URL? = nil,
-         withThumbnailImage: UIImage? = nil) {
+         withThumbnailImage: UIImage? = nil,
+         withOfflineValue: Bool? = nil,
+         withSize: String? = nil) {
         
         self.bcTitle = withTitle
        
@@ -35,6 +46,10 @@ struct Video {
         self.thumbnailURL = withThumbnailURL
         
         self.thumbnailImage = withThumbnailImage
+        
+        self.isOffline = withOfflineValue
+        
+        self.size = withSize
         
     }
     

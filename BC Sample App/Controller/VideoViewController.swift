@@ -51,6 +51,7 @@ class VideoViewController: UIViewController, BCOVPlaybackControllerDelegate {
 
         
         
+        
         return _playbackController
     }()
     
@@ -65,6 +66,7 @@ class VideoViewController: UIViewController, BCOVPlaybackControllerDelegate {
         super.viewDidLoad()
         let _ = playerView
         let _ = playbackController
+       
         requestContentFromPlaybackService()
     }
     
@@ -83,6 +85,7 @@ class VideoViewController: UIViewController, BCOVPlaybackControllerDelegate {
             
             if let v = video {
                 self.playbackController?.setVideos([v] as NSArray)
+               // self.playbackController.
             } else {
                 print("ViewController Debug - Error retrieving video: \(error?.localizedDescription ?? "unknown error")")
             }

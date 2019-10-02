@@ -217,7 +217,7 @@ class PlaylistViewController: UIViewController,BCOVPlaybackControllerDelegate,UI
     
     
     
-    //MARK: Set
+    //MARK: Set initial video and populate tables
     private func setInitialVideoAndRefreshTable(){
        
         playVideoFromPlaylist(with: videosFromPlaylist[0])
@@ -258,7 +258,6 @@ class PlaylistViewController: UIViewController,BCOVPlaybackControllerDelegate,UI
                
                 if let data = data, let image = UIImage(data: data) {
                     
-                    //self.imagesOnPlayList[onIndex] = image
                     self.videosFromPlaylist[onIndex].thumbnailImage = image
                     
                     let indexPath = IndexPath(row: onIndex, section: 0)

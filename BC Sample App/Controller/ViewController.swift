@@ -48,6 +48,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             performSegue(withIdentifier: "toIMAVideo", sender: self)
         case "PlaylistViewController":
             performSegue(withIdentifier: "toPlaylist", sender: self)
+        case "SimpleOfflineViewController":
+            performSegue(withIdentifier: "toOfflineController", sender: self)
         default:
             print("default")
         }
@@ -57,7 +59,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         arrayOfDemos = [Demo(withName: "Simple Demo", withContent_id: "6054855884001", withActivity: "VideoViewController"),
                         Demo(withName: "IMA Integration Demo", withContent_id: "6056595896001", withActivity: "BCIMAViewController"),
                         Demo(withName: "Yet another Simple Demo", withContent_id: "6054851890001", withActivity: "VideoViewController"),
-                        Demo(withName: "Playlist Demo", withContent_id: "6054209724001", withActivity: "PlaylistViewController")  ]
+                        Demo(withName: "Playlist Demo", withContent_id: "6054209724001", withActivity: "PlaylistViewController"),
+                        Demo(withName: "Simple No-DRM Offline Demo", withContent_id: "6054762298001", withActivity: "SimpleOfflineViewController")  ]
         
     }
     
@@ -79,8 +82,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 let destinationVC = segue.destination as! PlaylistViewController
                 destinationVC.selectedDemo = arrayOfDemos[indexPath.row]
             }
-
-            
+        } else if segue.identifier == "toOfflineController" {
+            if let indexPath = tableView.indexPathForSelectedRow {
+                let destinationVC = segue.destination as! OfflineViewController
+                destinationVC.selectedDemo = arrayOfDemos[indexPath.row]
+            }
         }
     }
 }
