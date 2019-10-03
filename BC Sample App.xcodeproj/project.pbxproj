@@ -11,6 +11,7 @@
 		947DCB0823185A30001E9A76 /* BCOV+helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947DCB0723185A30001E9A76 /* BCOV+helper.swift */; };
 		9485ECCF2343F27C00240073 /* OfflineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9485ECCE2343F27C00240073 /* OfflineViewController.swift */; };
 		9485ECD12343F93E00240073 /* OfflineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9485ECD02343F93E00240073 /* OfflineTableViewCell.swift */; };
+		94AA9A99234564F000FB7732 /* download.png in Resources */ = {isa = PBXBuildFile; fileRef = 94AA9A98234564F000FB7732 /* download.png */; };
 		94AE24872339490D00B534E8 /* playlistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AE24862339490D00B534E8 /* playlistTableViewCell.swift */; };
 		94AE248A233AAA0A00B534E8 /* image-not-found.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 94AE2489233AAA0A00B534E8 /* image-not-found.jpg */; };
 		94BF11602316D31100D895ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BF115F2316D31100D895ED /* AppDelegate.swift */; };
@@ -33,6 +34,7 @@
 		947DCB0723185A30001E9A76 /* BCOV+helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BCOV+helper.swift"; sourceTree = "<group>"; };
 		9485ECCE2343F27C00240073 /* OfflineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineViewController.swift; sourceTree = "<group>"; };
 		9485ECD02343F93E00240073 /* OfflineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineTableViewCell.swift; sourceTree = "<group>"; };
+		94AA9A98234564F000FB7732 /* download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = download.png; sourceTree = "<group>"; };
 		94AE24862339490D00B534E8 /* playlistTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = playlistTableViewCell.swift; sourceTree = "<group>"; };
 		94AE2489233AAA0A00B534E8 /* image-not-found.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "image-not-found.jpg"; sourceTree = "<group>"; };
 		94BF115C2316D31100D895ED /* BC Sample App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BC Sample App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,6 +81,7 @@
 		94AE2488233AA99900B534E8 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				94AA9A98234564F000FB7732 /* download.png */,
 				94AE2489233AAA0A00B534E8 /* image-not-found.jpg */,
 			);
 			path = images;
@@ -220,6 +223,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				94AE248A233AAA0A00B534E8 /* image-not-found.jpg in Resources */,
+				94AA9A99234564F000FB7732 /* download.png in Resources */,
 				94BF116A2316D31600D895ED /* LaunchScreen.storyboard in Resources */,
 				94BF11672316D31600D895ED /* Assets.xcassets in Resources */,
 				94BF11652316D31100D895ED /* Main.storyboard in Resources */,
@@ -459,7 +463,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.antonio-duush-CO.BC-Sample-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -478,7 +482,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.antonio-duush-CO.BC-Sample-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

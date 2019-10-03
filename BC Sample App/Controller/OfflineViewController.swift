@@ -10,7 +10,8 @@ import UIKit
 import BrightcovePlayerSDK
 import SwiftyJSON
 
-class OfflineViewController: UIViewController, BCOVPlaybackControllerDelegate, UITableViewDataSource, UITableViewDelegate, UITableViewDataSourcePrefetching {
+class OfflineViewController: UIViewController, BCOVPlaybackControllerDelegate, UITableViewDataSource, UITableViewDelegate, UITableViewDataSourcePrefetching, OfflineCellDelegate, BCOVOfflineVideoManagerDelegate {
+  
   
     
     
@@ -18,11 +19,15 @@ class OfflineViewController: UIViewController, BCOVPlaybackControllerDelegate, U
     
     var selectedDemo: Demo?
         
-    var playlistToWorkOffline: [Video] = []
+    //var playlistToWorkOffline: [Video] = []
+    var videosToWorkOffline: [BCOVVideo] = []
+    
+    var thumbnailsForVideos: [UIImage?] = []
     
     @IBOutlet weak var offlineTableView: UITableView!
     
     fileprivate var tasks = [URLSessionTask]()
+    
     
     private lazy var playerView: BCOVPUIPlayerView? = {
         let options = BCOVPUIPlayerViewOptions()
@@ -98,80 +103,69 @@ class OfflineViewController: UIViewController, BCOVPlaybackControllerDelegate, U
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        return playlistToWorkOffline.count
+        return videosToWorkOffline.count
 
     }
       
       func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
           
         let offlineCell = tableView.dequeueReusableCell(withIdentifier: "OfflineVideos", for: indexPath) as! OfflineTableViewCell
-          
-          let videoName = playlistToWorkOffline[indexPath.row].bcTitle
-          
-          offlineCell.videoTitle.text = videoName
+        offlineCell.videoTitle.text = videosToWorkOffline[indexPath.row].properties[kBCOVVideoPropertyKeyName] as? String
+        var videoDuration = videosToWorkOffline[indexPath.row].properties["duration"] as! Double
         
-          var videoDuration = playlistToWorkOffline[indexPath.row].bcVideoDuration
-
-          if let image = playlistToWorkOffline[indexPath.row].thumbnailImage {
-
-            offlineCell.videoThumbnail?.image = image
-
-          } else {
-
-            offlineCell.videoThumbnail.image = UIImage(named: "image-not-found.jpg")
-            downloadImageForVideo(forVideo: playlistToWorkOffline[indexPath.row], onIndex: indexPath.row)
+        videoDuration = videoDuration / 1000.0
 
 
-          }
+        if videoDuration < 60.0 {
 
-          videoDuration = videoDuration / 1000.0
+          offlineCell.videoDuration.text = String(videoDuration.rounded())+" seconds"
 
+        } else if videoDuration > 60.0 {
 
-          if videoDuration < 60.0 {
+            videoDuration = videoDuration / 60.0
 
-            offlineCell.videoDuration.text = String(videoDuration.rounded())+" seconds"
+          offlineCell.videoDuration.text = String(videoDuration.rounded())+" minute(s)"
 
-          } else if videoDuration > 60.0 {
-
-              videoDuration = videoDuration / 60.0
-
-            offlineCell.videoDuration.text = String(videoDuration.rounded())+" minute(s)"
-
-          }
-          
-        if playlistToWorkOffline[indexPath.row].isOffline == true {
+        }
+        
+        if videosToWorkOffline[indexPath.row].properties["offline_enabled"] as! Bool {
             
             offlineCell.isDownloable.text = "Available Offline!"
             offlineCell.downloadButton.isEnabled = true
 
-            
-            
         } else {
+                       
+             offlineCell.isDownloable.text = "This video is not available for download"
+             offlineCell.downloadButton.isEnabled = false
             
-            offlineCell.isDownloable.text = "This video is not available for download"
-            offlineCell.downloadButton.isEnabled = false
+        }
+        
+        if let image = thumbnailsForVideos[indexPath.row] {
+
+            offlineCell.videoThumbnail?.image = image
+
+        } else {
+            offlineCell.videoThumbnail.image = UIImage(named: "image-not-found.jpg")
+            downloadImageForVideo(forVideo: videosToWorkOffline[indexPath.row], onIndex: indexPath.row)
         }
         
         offlineCell.downloadButton.tag = indexPath.row
+                
+        offlineCell.delegate = self
             
-          return offlineCell
+        return offlineCell
       }
     
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//
-//        offlineTableView.deselectRow(at: indexPath, animated: false)
-//
-//    }
       
      func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
          
-           indexPaths.forEach { self.downloadImageForVideo(forVideo: playlistToWorkOffline[$0.row], onIndex: $0.row) }
+           indexPaths.forEach { self.downloadImageForVideo(forVideo: videosToWorkOffline[$0.row], onIndex: $0.row) }
 
        }
        
        func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
         
-           indexPaths.forEach { self.cancelDownloadingImageForVideo(forVideo:  playlistToWorkOffline[$0.row], onIndex: $0.row) }
+           indexPaths.forEach { self.cancelDownloadingImageForVideo(forVideo:  videosToWorkOffline[$0.row], onIndex: $0.row) }
 
        }
 
@@ -187,15 +181,8 @@ class OfflineViewController: UIViewController, BCOVPlaybackControllerDelegate, U
                 
                     if let _video = video as? BCOVVideo {
                         
-                        let video: Video = Video(withTitle: JSON(_video.properties)["name"].stringValue,
-                                                 withVideoId: JSON(_video.properties)["id"].stringValue,
-                                                 withVideoDuration: JSON(_video.properties)["duration"].doubleValue,
-                                                 withShortDescription: nil,
-                                                 withThumbnailURL: JSON(_video.properties)["thumbnail"].url,
-                                                 withThumbnailImage: nil,
-                                                 withOfflineValue: _video.canBeDownloaded)
-                     
-                        self?.playlistToWorkOffline.append(video)
+                        self?.videosToWorkOffline.append(_video)
+                        self?.thumbnailsForVideos.append(nil)
                     }
                     
                 }
@@ -226,10 +213,8 @@ class OfflineViewController: UIViewController, BCOVPlaybackControllerDelegate, U
             
             if let v = video {
                 
-                //self.playbackController?.setVideos([v] as NSArray)
                 print("Can be downloaded? - \(v.canBeDownloaded)")
                 if v.canBeDownloaded {
-                    
                     
                     
                 }
@@ -242,23 +227,25 @@ class OfflineViewController: UIViewController, BCOVPlaybackControllerDelegate, U
         
     }
     
-    func downloadImageForVideo(forVideo: Video, onIndex: Int){
+    func downloadImageForVideo(forVideo: BCOVVideo, onIndex: Int){
         
-        let imageUrl = forVideo.thumbnailURL
+        let urlToDownload = URL(string: forVideo.properties["thumbnail"] as! String)
         
-        guard tasks.firstIndex(where: { $0.originalRequest?.url == imageUrl } ) == nil else {
+        guard tasks.firstIndex(where: { $0.originalRequest?.url == urlToDownload! } ) == nil else {
             
             // we are already downloading the image, move on.
+
             return
         }
-        let task = URLSession.shared.dataTask(with: imageUrl!) { (data, response, error) in
-            
+        let task = URLSession.shared.dataTask(with: urlToDownload!) { (data, response, error) in
+
             DispatchQueue.main.async {
-               
+
                 if let data = data, let image = UIImage(data: data) {
                     
-                    self.playlistToWorkOffline[onIndex].thumbnailImage = image
                     
+                    self.thumbnailsForVideos[onIndex] = image
+                                        
                     let indexPath = IndexPath(row: onIndex, section: 0)
                     
                     if self.offlineTableView.indexPathsForVisibleRows?.contains(indexPath) ?? false {
@@ -275,11 +262,12 @@ class OfflineViewController: UIViewController, BCOVPlaybackControllerDelegate, U
         task.resume()
         
         tasks.append(task)
+        
     }
     
-    func cancelDownloadingImageForVideo(forVideo: Video, onIndex: Int){
+    func cancelDownloadingImageForVideo(forVideo: BCOVVideo, onIndex: Int){
         
-        let imageUrl = forVideo.thumbnailURL
+        let imageUrl = URL(string: forVideo.properties["thumbnail"] as! String)
         
         guard let taskIndex = tasks.firstIndex(where: { $0.originalRequest?.url == imageUrl }) else {
         
@@ -292,6 +280,21 @@ class OfflineViewController: UIViewController, BCOVPlaybackControllerDelegate, U
         task.cancel()
         
         tasks.remove(at: taskIndex)
+         
+        
+    }
+    
+    func didTapDownload(index: Int) {
+        
+        print("User wants to download video: \(String(describing: videosToWorkOffline[index].properties[kBCOVVideoPropertyKeyName]!)) with id: \(String(describing: videosToWorkOffline[index].properties[kBCOVVideoPropertyKeyName]!))")
+        
+//            BCOVOfflineVideoManager.initializeOfflineVideoManager(with: self, options: nil)
+//        BCOVOfflineVideoManager.shared()?.requestVideoDownload(videosToWorkOffline[index], parameters: nil, completion: {
+//
+//            [weak self] (offlineVideoToken: String?, error: Error?) in
+//
+//
+//        })
         
     }
     
