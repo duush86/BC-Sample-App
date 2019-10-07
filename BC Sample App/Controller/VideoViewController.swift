@@ -14,6 +14,7 @@ class VideoViewController: UIViewController, BCOVPlaybackControllerDelegate {
     @IBOutlet weak var videoContainerView: UIView!
     var selectedDemo: Demo?
     @IBOutlet weak var overlayView: UIView!
+    var player : BCOVPlaybackController? = nil
     
     private lazy var playerView: BCOVPUIPlayerView? = {
         let options = BCOVPUIPlayerViewOptions()
@@ -65,9 +66,14 @@ class VideoViewController: UIViewController, BCOVPlaybackControllerDelegate {
         
         super.viewDidLoad()
         let _ = playerView
-        let _ = playbackController
-       
+        player = playbackController
+    
         requestContentFromPlaybackService()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(enterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(willEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+
     }
     
 
@@ -91,6 +97,20 @@ class VideoViewController: UIViewController, BCOVPlaybackControllerDelegate {
             }
         }
     
+        
+    }
+    
+    @objc func enterBackground(_ notification: Notification) {
+        // code to execute
+        print("Moving to background")
+        player!.pause()
+        
+    }
+    
+    @objc func willEnterForeground(_ notification: Notification){
+        
+        print("Moving to foreground")
+        player!.pause()
         
     }
     

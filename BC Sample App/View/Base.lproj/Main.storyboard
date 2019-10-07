@@ -56,7 +56,6 @@
                         <segue destination="ZdA-su-XIJ" kind="show" identifier="toBasicVideo" id="m6J-QG-YpL"/>
                         <segue destination="1eq-0R-Ibw" kind="show" identifier="toIMAVideo" id="sy5-Qo-VKT"/>
                         <segue destination="iAB-bu-dDr" kind="show" identifier="toPlaylist" id="tmx-Hr-gVb"/>
-                        <segue destination="FXH-KI-z4B" kind="show" identifier="toOfflineController" id="89R-eM-ca1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -241,124 +240,6 @@
             </objects>
             <point key="canvasLocation" x="714" y="1000"/>
         </scene>
-        <!--Offline View Controller-->
-        <scene sceneID="eYW-nA-BRg">
-            <objects>
-                <viewController id="FXH-KI-z4B" customClass="OfflineViewController" customModule="BC_Sample_App" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="lpm-zG-ryN">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qaK-Ci-8ca">
-                                <rect key="frame" x="0.0" y="44" width="375" height="177"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="H8J-Vu-CXS">
-                                <rect key="frame" x="0.0" y="229" width="375" height="472"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="OfflineVideos" rowHeight="120" id="qk4-1R-nAJ" customClass="OfflineTableViewCell" customModule="BC_Sample_App" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="120"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qk4-1R-nAJ" id="wfu-Lg-0Lj">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AN1-wf-5JA">
-                                                    <rect key="frame" x="-5" y="0.0" width="150" height="120"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="120" id="2a8-Ex-1nb"/>
-                                                        <constraint firstAttribute="width" constant="150" id="6DE-4L-zzp"/>
-                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="6qq-WN-o9f"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cjs-Yt-Cp3">
-                                                    <rect key="frame" x="153" y="11" width="147" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="20" id="BeR-Me-dWK"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="20"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IsD" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DGx-J6-V5b">
-                                                    <rect key="frame" x="153" y="83" width="22.5" height="17.5"/>
-                                                    <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="15"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Duration" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y4Q-wF-qU5">
-                                                    <rect key="frame" x="153" y="45.5" width="57" height="18"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="18" id="7hK-1t-Ssp"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="15"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d5x-1E-smV">
-                                                    <rect key="frame" x="325" y="43" width="35" height="34"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="35" id="40F-Gi-0UP"/>
-                                                    </constraints>
-                                                    <state key="normal" image="download.png"/>
-                                                    <connections>
-                                                        <action selector="downloadButtonPressed:" destination="qk4-1R-nAJ" eventType="touchUpInside" id="jZ6-8H-JXB"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="DGx-J6-V5b" secondAttribute="trailing" constant="20" symbolic="YES" id="1p4-mn-TvJ"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="DGx-J6-V5b" secondAttribute="bottom" constant="8.5" id="4fn-Xh-mZg"/>
-                                                <constraint firstItem="y4Q-wF-qU5" firstAttribute="leading" secondItem="DGx-J6-V5b" secondAttribute="leading" id="9Yf-uG-QTu"/>
-                                                <constraint firstItem="DGx-J6-V5b" firstAttribute="leading" secondItem="AN1-wf-5JA" secondAttribute="trailing" constant="8" symbolic="YES" id="D8B-bO-CAR"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="Cjs-Yt-Cp3" secondAttribute="trailing" constant="60" id="Gwd-E5-Gm4"/>
-                                                <constraint firstItem="d5x-1E-smV" firstAttribute="top" secondItem="wfu-Lg-0Lj" secondAttribute="topMargin" constant="32" id="OIU-Fb-SRq"/>
-                                                <constraint firstItem="d5x-1E-smV" firstAttribute="trailing" secondItem="wfu-Lg-0Lj" secondAttribute="trailingMargin" id="R9y-zN-Tka"/>
-                                                <constraint firstItem="d5x-1E-smV" firstAttribute="centerY" secondItem="AN1-wf-5JA" secondAttribute="centerY" id="Rm6-Ez-pLv"/>
-                                                <constraint firstItem="d5x-1E-smV" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="y4Q-wF-qU5" secondAttribute="trailing" constant="8" symbolic="YES" id="Vs8-v4-ynX"/>
-                                                <constraint firstItem="Cjs-Yt-Cp3" firstAttribute="leading" secondItem="y4Q-wF-qU5" secondAttribute="leading" id="ZZQ-We-woo"/>
-                                                <constraint firstItem="AN1-wf-5JA" firstAttribute="leading" secondItem="wfu-Lg-0Lj" secondAttribute="leadingMargin" constant="-20" id="aka-dE-FlV"/>
-                                                <constraint firstItem="y4Q-wF-qU5" firstAttribute="top" secondItem="Cjs-Yt-Cp3" secondAttribute="bottom" constant="14.5" id="ex0-OY-yY1"/>
-                                                <constraint firstItem="AN1-wf-5JA" firstAttribute="top" secondItem="wfu-Lg-0Lj" secondAttribute="top" id="gpn-40-lSv"/>
-                                                <constraint firstItem="Cjs-Yt-Cp3" firstAttribute="top" secondItem="wfu-Lg-0Lj" secondAttribute="topMargin" id="plo-qG-51f"/>
-                                                <constraint firstAttribute="bottom" secondItem="AN1-wf-5JA" secondAttribute="bottom" id="qXQ-5A-9cc"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="downloadButton" destination="d5x-1E-smV" id="r18-X2-dp9"/>
-                                            <outlet property="isDownloable" destination="DGx-J6-V5b" id="Siw-aE-gPK"/>
-                                            <outlet property="videoDuration" destination="y4Q-wF-qU5" id="Oxs-6p-YZI"/>
-                                            <outlet property="videoThumbnail" destination="AN1-wf-5JA" id="5N5-qT-QfF"/>
-                                            <outlet property="videoTitle" destination="Cjs-Yt-Cp3" id="fs3-k0-rx0"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="H8J-Vu-CXS" firstAttribute="leading" secondItem="qaK-Ci-8ca" secondAttribute="leading" id="InW-oP-Kb4"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="H8J-Vu-CXS" secondAttribute="bottom" constant="-34" id="J7p-Rg-tfK"/>
-                            <constraint firstItem="fEo-bu-qd6" firstAttribute="bottom" secondItem="qaK-Ci-8ca" secondAttribute="bottom" constant="446" id="RD8-hB-BWT"/>
-                            <constraint firstItem="qaK-Ci-8ca" firstAttribute="leading" secondItem="fEo-bu-qd6" secondAttribute="leading" id="WKa-83-e4p"/>
-                            <constraint firstItem="H8J-Vu-CXS" firstAttribute="top" secondItem="qaK-Ci-8ca" secondAttribute="bottom" constant="8" id="fRR-CX-CTW"/>
-                            <constraint firstItem="qaK-Ci-8ca" firstAttribute="centerX" secondItem="lpm-zG-ryN" secondAttribute="centerX" id="kjX-lH-pxL"/>
-                            <constraint firstItem="qaK-Ci-8ca" firstAttribute="top" secondItem="fEo-bu-qd6" secondAttribute="top" id="o5c-DD-pWy"/>
-                            <constraint firstItem="H8J-Vu-CXS" firstAttribute="trailing" secondItem="qaK-Ci-8ca" secondAttribute="trailing" id="xrF-ZE-bKF"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="fEo-bu-qd6"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="hDa-Cl-GHg"/>
-                    <connections>
-                        <outlet property="offlineTableView" destination="H8J-Vu-CXS" id="0yC-3B-DLQ"/>
-                        <outlet property="videoContainerView" destination="qaK-Ci-8ca" id="tQH-pr-qze"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="R3h-Wm-UsH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1444" y="367.46626686656674"/>
-        </scene>
         <!--View Controller-->
         <scene sceneID="2Hp-PY-2bS">
             <objects>
@@ -387,10 +268,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vWx-jH-jSY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2090" y="-139"/>
+            <point key="canvasLocation" x="1762" y="88"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="download.png" width="64" height="64"/>
-    </resources>
 </document>

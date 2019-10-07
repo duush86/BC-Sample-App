@@ -9,10 +9,9 @@
 import UIKit
 import BrightcovePlayerSDK
 
-protocol OfflineCellDelegate {
+protocol OfflineCellDelegate: class {
     
-    func didTapDownload(index: Int)
-    
+    func didTapDownload(video: BCOVVideo)
     
 }
 
@@ -26,15 +25,25 @@ class OfflineTableViewCell: UITableViewCell {
     @IBOutlet weak var videoDuration: UILabel!
     @IBOutlet weak var downloadButton: UIButton!
     
-    var delegate: OfflineCellDelegate?
+    weak var delegate: OfflineCellDelegate?
+    
+    weak var videoBC: BCOVVideo?
+
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
     
+    func setup(withVideo: BCOVVideo){
+        self.videoBC = withVideo
+    }
     
     @IBAction func downloadButtonPressed(_ sender: UIButton) {
-        delegate?.didTapDownload(index: sender.tag)        
+        if let video = videoBC {
+            
+            delegate?.didTapDownload(video: video)
+        
+        }
     }
 }
