@@ -22,6 +22,14 @@ class VideoViewController: UIViewController, BCOVPlaybackControllerDelegate {
     
         let controlView = BCOVPUIBasicControlView.withVODLayout()
         
+        controlView?.setFontSizeForLabels(20.0)
+        
+        controlView?.setFontSizeForButtons(20.0)
+        
+        controlView?.layout.compactLayoutMaximumWidth = 100
+        
+        
+        
         guard let _playerView = BCOVPUIPlayerView(playbackController: nil, options: options, controlsView: controlView) else { return nil }
         
         // Add to parent view
@@ -34,6 +42,8 @@ class VideoViewController: UIViewController, BCOVPlaybackControllerDelegate {
             _playerView.leftAnchor.constraint(equalTo: self.videoContainerView.leftAnchor),
             _playerView.bottomAnchor.constraint(equalTo: self.videoContainerView.bottomAnchor)
             ])
+        
+        
         return _playerView
     }()
     
@@ -46,6 +56,8 @@ class VideoViewController: UIViewController, BCOVPlaybackControllerDelegate {
         _playbackController.delegate = self
         _playbackController.isAutoAdvance = true
         _playbackController.isAutoPlay = true
+        
+        
         
         self.playerView?.playbackController = _playbackController
         self.playerView?.overlayView.addSubview(overlayView)

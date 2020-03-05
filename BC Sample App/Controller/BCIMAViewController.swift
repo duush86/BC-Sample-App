@@ -14,18 +14,26 @@ import GoogleInteractiveMediaAds
 class BCIMAViewController: UIViewController {
     
     @IBOutlet weak var videoContainerView: UIView!
+    @IBOutlet weak var overlayView: UIView!
+    @IBOutlet weak var closeButton: UIButton!
     var selectedDemo: Demo?
+    
+    var imaManager: IMAAdsManager?
 
     private lazy var playerView: BCOVPUIPlayerView? = {
         
         let options = BCOVPUIPlayerViewOptions()
         
         options.presentingViewController = self
-        
+                
         // Create PlayerUI views with normal VOD controls.
         
-        let controlView = BCOVPUIBasicControlView.withVODLayout()
+        //let controlView = BCOVPUIBasicControlView.withVODLayout()
         
+        let controlView = BCOVPUIBasicControlView.withVODLayout()
+
+       // let controlView = BCOVPUIControlLayout.basicVOD()
+                
         guard let _playerView = BCOVPUIPlayerView(playbackController: nil, options: options, controlsView: controlView) else {
         
             return nil
@@ -33,6 +41,7 @@ class BCIMAViewController: UIViewController {
         }
         
         // Add to parent view
+        
         self.videoContainerView.addSubview(_playerView)
         
         _playerView.translatesAutoresizingMaskIntoConstraints = false
@@ -94,6 +103,9 @@ class BCIMAViewController: UIViewController {
         
         self.playerView?.playbackController = _playbackController
         
+        self.playerView?.overlayView.addSubview(overlayView)
+
+        
         // Creating a playback controller based on the above code will create
         // VMAP / Server Side Ad Rules. These settings are explained in BCOVIMAAdsRequestPolicy.h.
         // If you want to change these settings, you can initialize the plugin like so:
@@ -139,6 +151,42 @@ class BCIMAViewController: UIViewController {
         requestContentFromPlaybackService()
     }
     
+    @IBAction func closeButtonTapped(_ sender: Any) {
+        
+        
+        if adIsPlaying == true {
+            
+            print("Pausing content and ad")
+            
+            playbackController?.pauseAd()
+            
+            playbackController?.pause()
+                   
+        } else {
+            
+            if imaManager != nil {
+                
+                print("Manager exist, you need to distroy it")
+                
+                imaManager?.destroy()
+                
+            } else {
+                
+                print("Manager doesn't exist, move on")
+            }
+            
+        }
+        
+                
+        playerView?.removeFromSuperview()
+        
+        playerView = nil
+
+        playbackController = nil
+        
+       
+        
+    }
     // MARK: - Misc
     
     private func resumeAdAfterForeground() {
@@ -203,14 +251,18 @@ extension BCIMAViewController: BCOVPlaybackControllerDelegate {
         if type == kBCOVIMALifecycleEventAdsLoaderLoaded {
             print("ViewController Debug - Ads loaded.")
             
+            
             // When ads load successfully, the kBCOVIMALifecycleEventAdsLoaderLoaded lifecycle event
             // returns an NSDictionary containing a reference to the IMAAdsManager.
             guard let adsManager = lifecycleEvent.properties[kBCOVIMALifecycleEventPropertyKeyAdsManager] as? IMAAdsManager else {
                 return
             }
             
+            imaManager = adsManager
+            
             // Lower the volume of ads by half.
             adsManager.volume = adsManager.volume / 2.0
+            
             let volumeString = String(format: "%0.1", adsManager.volume)
             print("ViewController Debug - IMAAdsManager.volume set to \(volumeString)")
             
@@ -224,24 +276,37 @@ extension BCIMAViewController: BCOVPlaybackControllerDelegate {
             case .STARTED:
                 print("ViewController Debug - Ad Started.")
                 adIsPlaying = true
+                //controller.pauseAd()
+                print("PAUSING AD")
             case .COMPLETE:
                 print("ViewController Debug - Ad Completed.")
                 adIsPlaying = false
             case .ALL_ADS_COMPLETED:
                 print("ViewController Debug - All ads completed.")
+                
             default:
                 break
             }
+        
         }
+        
+        print("AD EVENT: \(lifecycleEvent.properties as? IMAAdEvent)")
+        print("LIVE CYCLE EVENT: \(type)")
     }
     
     func playbackController(_ controller: BCOVPlaybackController!, playbackSession session: BCOVPlaybackSession!, didEnter adSequence: BCOVAdSequence!) {
         // Hide all controls for ads (so they're not visible when full-screen)
+        print("I'll show ads")
+
+        adIsPlaying = true
+
         playerView?.controlsContainerView.alpha = 0.0
+
     }
     
     func playbackController(_ controller: BCOVPlaybackController!, playbackSession session: BCOVPlaybackSession!, didExitAdSequence adSequence: BCOVAdSequence!) {
         // Show all controls when ads are finished.
+        print("My skipping or dinishing the ads")
         playerView?.controlsContainerView.alpha = 1.0
     }
     
